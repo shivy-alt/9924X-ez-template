@@ -337,9 +337,9 @@ void solo_winpoint(){
 //   chassis.pid_wait();
 
   
-
-
 }
+
+
 void auto_skills(){
   //scoring preload onto alliance stake
   intake_on();
@@ -349,7 +349,7 @@ void auto_skills(){
   chassis.pid_drive_set(0.55*tile_length, 80, true);
   pros::delay(350);
   chassis.pid_wait();
-  chassis.pid_turn_relative_set(-89, 115, true);
+  chassis.pid_turn_relative_set(-90, 115, true);
   pros::delay(500);
   chassis.pid_drive_set(-0.62*tile_length,50,true);
   chassis.pid_wait();
@@ -358,40 +358,43 @@ void auto_skills(){
   pros::delay(250);
 
   //scoring ring #1 into mogo #1
-  chassis.pid_turn_relative_set(100,115,true);
+  chassis.pid_turn_relative_set(110,115,true);
   chassis.pid_wait();
   intake_on();
-  chassis.pid_drive_set(1.1tile_length,110,true);
+  chassis.pid_drive_set(1.2*tile_length,110,true);
   pros::delay(1500);
 
   //getting ring #2 and aligning for wall stake
-  chassis.pid_turn_relative_set(30,100,true);
+  chassis.pid_turn_relative_set(38,100,true);
   pros::delay(500);
+  chassis.pid_drive_set(1.4*tile_length,65,true);
   moveArmToPosition(2850);
   pros::delay(10);
   moveArmToPosition(2851);
-  chassis.pid_drive_set(tile_length,65,true);
   pros::delay(1000);
-  chassis.pid_turn_relative_set(50,100,true);
+  chassis.pid_drive_set(0.28*tile_length,100,true);
+  pros::delay(500);
+  chassis.pid_turn_relative_set(30,100,true);
   pros::delay(500);
 
-  // //scoring wall stake
-  // chassis.pid_drive_set(0.2*tile_length,100,true);
-  // intake_on();
-  // chassis.pid_wait();
-  // pros::delay(1000);
-  // move_ldb(127, 500);
-  // pros::delay(500);
-  // move_ldb(0, 500);
-  // pros::delay(500);
-  // chassis.pid_wait();
-  // chassis.pid_drive_set(-0.2*tile_length,100,true);
-  // pros::delay(500);
-  // move_ldb(-127, 500);
-  // pros::delay(500);
-  // move_ldb(0, 10);
-  // pros::delay(10);
-  // chassis.pid_wait();
+  //scoring wall stake
+  chassis.pid_drive_set(0.2*tile_length,100,true);
+  intake_on();
+  chassis.pid_wait();
+  pros::delay(1000);
+  intake_off();
+  move_ldb(127, 500);
+  pros::delay(500);
+  move_ldb(0, 500);
+  pros::delay(500);
+  intake_on();
+  chassis.pid_wait();
+  move_ldb(-127, 500);
+  pros::delay(500);
+  move_ldb(0, 10);
+  pros::delay(10);
+  chassis.pid_drive_set(-0.3*tile_length,100,true);
+  chassis.pid_wait();
 
   // //scoring ring #3 onto mogo #1
   // chassis.pid_turn_relative_set(90,120,true);
