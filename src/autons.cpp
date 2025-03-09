@@ -368,6 +368,7 @@ void auto_skills(){
   chassis.pid_turn_relative_set(38,100,true);
   pros::delay(500);
   chassis.pid_drive_set(1.4*tile_length,65,true);
+  pros::delay(1000);
   moveArmToPosition(2850);
   pros::delay(10);
   moveArmToPosition(2851);
@@ -375,19 +376,20 @@ void auto_skills(){
   chassis.pid_drive_set(0.2*tile_length,100,true);
   pros::delay(500);
   chassis.pid_turn_relative_set(32,100,true);
-  pros::delay(500);
+  pros::delay(700);
 
   //scoring wall stake
-  chassis.pid_drive_set(0.2*tile_length,100,true);
+  chassis.pid_drive_set(0.3*tile_length,100,true);
   intake_on();
   chassis.pid_wait();
   pros::delay(100);
   intake_off();
-  pros::delay(20);
+  chassis.pid_drive_set(-0.1*tile_length,100,true);
+  pros::delay(30);
   intake_on();
-  pros::delay(20);
+  pros::delay(30);
   intake_off();
-  move_ldb(127, 280);
+  move_ldb(127, 200);
   pros::delay(200);
   move_ldb(0, 280);
   pros::delay(100);
@@ -395,7 +397,7 @@ void auto_skills(){
   chassis.pid_wait();
   chassis.pid_drive_set(-0.3*tile_length,100,true);
   pros::delay(500);
-  move_ldb(-127, 500);
+  move_ldb(-127, 580);
   pros::delay(500);
   move_ldb(0, 10);
   pros::delay(10);
@@ -410,7 +412,7 @@ void auto_skills(){
   chassis.pid_wait();
   pros::delay(500);
   chassis.pid_drive_set(0.4*tile_length,100,true);
-  pros::delay(300);
+  pros::delay(800);
 
   //score mogo in corner
   chassis.pid_turn_relative_set(105,80,true);
@@ -422,39 +424,39 @@ void auto_skills(){
   pros::delay(300);
 
   //getting 2nd mogo
-  chassis.pid_drive_set(1.7*tile_length,100,true);
+  chassis.pid_drive_set(1.4*tile_length,100,true);
   pros::delay(500);
   chassis.pid_wait();
   chassis.pid_turn_relative_set(-20,100,true);
   pros::delay(800);
-  chassis.pid_drive_set(4*tile_length,100,true);
+  chassis.pid_drive_set(4.4*tile_length,100,true);
   pros::delay(500);
   chassis.pid_turn_relative_set(-176,80,true);
   pros::delay(500);
-  chassis.pid_drive_set(-0.5*tile_length,50,true);
+  chassis.pid_drive_set(-0.8*tile_length,50,true);
   chassis.pid_wait();
   pros::delay(500);
   mogo_clamp.set_value(true);
   pros::delay(250);
 
   //scoring ring #1 into mogo #2
-  chassis.pid_turn_relative_set(-97,115,true);
+  chassis.pid_turn_relative_set(-105,115,true);
   pros::delay(500);
   intake_on();
   chassis.pid_drive_set(1.2*tile_length,110,true);
   pros::delay(1500);
 
   //getting ring #2 and aligning for wall stake
-  chassis.pid_turn_relative_set(-58,100,true);
+  chassis.pid_turn_relative_set(-45,100,true);
   pros::delay(500);
   chassis.pid_drive_set(1.34*tile_length,65,true);
   moveArmToPosition(2850);
   pros::delay(10);
   moveArmToPosition(2851);
   pros::delay(1000);
-  chassis.pid_drive_set(0.25*tile_length,100,true);
+  chassis.pid_drive_set(0.3*tile_length,100,true);
   pros::delay(500);
-  chassis.pid_turn_relative_set(-40,100,true);
+  chassis.pid_turn_relative_set(-37,100,true);
   pros::delay(500);
 
   //scoring wall stake
@@ -468,12 +470,12 @@ void auto_skills(){
   pros::delay(20);
   intake_off();
   move_ldb(127, 280);
-  pros::delay(200);
+  pros::delay(280);
   move_ldb(0, 280);
   pros::delay(100);
   intake_on();
   chassis.pid_wait();
-  chassis.pid_drive_set(-0.5*tile_length,100,true);
+  chassis.pid_drive_set(-0.55*tile_length,100,true);
   pros::delay(500);
   move_ldb(-127, 500);
   pros::delay(500);
@@ -483,7 +485,7 @@ void auto_skills(){
   intake_on();
 
   //scoring ring #3 onto mogo #2
-  chassis.pid_turn_relative_set(-92,120,true);
+  chassis.pid_turn_relative_set(-85,120,true);
   chassis.pid_wait();
   chassis.pid_drive_set(1.9*tile_length,60,true);
   chassis.pid_wait();
@@ -502,16 +504,16 @@ void auto_skills(){
 
   //getting 3rd mogo
   chassis.pid_drive_set(1.7*tile_length,100,true);
-  pros::delay(500);
+  pros::delay(1000);
   chassis.pid_turn_relative_set(-20,100,true);
   pros::delay(800);
   chassis.pid_drive_set(4*tile_length,100,true);
-  pros::delay(500);
+  pros::delay(1000);
   chassis.pid_turn_relative_set(-176,80,true);
   pros::delay(500);
   chassis.pid_drive_set(-0.5*tile_length,50,true);
   chassis.pid_wait();
-  pros::delay(500);
+  pros::delay(1000);
   mogo_clamp.set_value(true);
   pros::delay(250);
 
