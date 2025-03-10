@@ -10,6 +10,8 @@
 
 
 
+
+
 /////
 // For installation, upgrading, documentations, and tutorials, check out our website!
 // https://ez-robotics.github.io/EZ-Template/
@@ -134,13 +136,15 @@ void initialize() {
 
   // Autonomous Selector using LLEMU
   ez::as::auton_selector.autons_add({
-    Auton("5 RING", five_ring),
-      Auton("Pos Goal Rush",goal_rush),
-      Auton("RED LEFT(4 RING)",Four_ring_auto_red_side),
-      Auton("BLUE RIGHT(4 RING)",Four_ring_auto_blue_side),
+    
+    Auton("4 RING (1+3) red", five_ring_red_side),
+      Auton("Pos Safe Auto red (1+1)",pos_safe),
+      Auton("Pos Goal Rush red (1+1+1)",goal_rush),
+      Auton("Pos Safe Blue Auto (1+1)",pos_safe_blue),
+      Auton("4 RING (1+3) BLUE",five_ring_blue_side),
+      Auton("Sig Solo Awp (1+2+1) red",sig_sawp),
       Auton("Auton Skills",auto_skills),
-      Auton("Solo Winpoint", solo_winpoint),
-      Auton("Full Goal Auto",full_goal_auto),
+      
   });
 
   // Initialize chassis and auton selector
@@ -202,6 +206,7 @@ void autonomous() {
   chassis.drive_imu_reset();                  // Reset gyro position to 0
   chassis.drive_sensor_reset();               // Reset drive sensors to 0
   chassis.drive_brake_set(MOTOR_BRAKE_HOLD);  // Set motors to hold.  This helps autonomous consistency
+ 
 
   ez::as::auton_selector.selected_auton_call();  // Calls selected auton from autonomous selector
 }
@@ -223,6 +228,7 @@ void autonomous() {
  */
 
 void opcontrol() {
+  
 
   // This is preference to what you like to drive on
   pros::motor_brake_mode_e_t driver_preference_brake = MOTOR_BRAKE_COAST;
@@ -230,7 +236,7 @@ void opcontrol() {
   chassis.drive_brake_set(driver_preference_brake);
   ldb_motor1.set_brake_mode(MOTOR_BRAKE_HOLD);
   ldb_motor2.set_brake_mode(MOTOR_BRAKE_HOLD);
-
+   bool ldb_bool = false;
   while (true) {
     // PID Tuner
     // After you find values that you're happy with, you'll have to set them in auton.cpp
@@ -273,45 +279,64 @@ void opcontrol() {
       intake1.move(0);
       
     }
+    if(control.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_X)){
+      sweeper_bool=!sweeper_bool;
+      sweeper.set_value(sweeper_bool);
+    }
     
     if(control.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_Y)){
       mogo_bool=!mogo_bool;
       mogo_clamp.set_value(mogo_bool);
-   
-    }
-    if(control.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_B)){
-      hang_bool=!hang_bool;
-    
-    }
 
     
+   
+    }
+   
+    
+   
+
+    if (master.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_A)){
+      /*ladyBrownVariableCount();
+      ladyBrownBoolCounter++;*/
+      moveArmToPosition(2379);
+      pros::delay(10);
+      moveArmToPosition(2380);
+      ldb_bool = false;
+
+
+     // moveArmToPosition(9000);
+
+    }
    
     
   
    if(control.get_digital(pros::E_CONTROLLER_DIGITAL_L2)){
       ldb_motor1.move(127);
       ldb_motor2.move(127);
+      ldb_bool = true;
+
       
     } else if(control.get_digital(pros::E_CONTROLLER_DIGITAL_L1)){
       ldb_motor1.move(-127);
       ldb_motor2.move(-127);
+      ldb_bool = true;
+
       
     } else{
-      ldb_motor1.move(0);
-      ldb_motor2.move(0);
+      if (ldb_bool == true){
+        ldb_motor1.move(0);
+        ldb_motor2.move(0);
+      }
+
+      else{
+        ldb_motor1.move(2);
+        ldb_motor2.move(2);
+      }
+       
       
     }
 
-     if (master.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_RIGHT)){
-            /*ladyBrownVariableCount();
-            ladyBrownBoolCounter++;*/
-            moveArmToPosition(2850);
-            pros::delay(10);
-            moveArmToPosition(2851);
-
-           // moveArmToPosition(9000);
-
-          }
+     
 
      
     pros::delay(ez::util::DELAY_TIME);  // This is used for timer calculations!  Keep this ez::util::DELAY_TIME
